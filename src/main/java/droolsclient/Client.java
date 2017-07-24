@@ -21,7 +21,8 @@ import io.vertx.core.Vertx;
 
 
 public class Client {
-	private static final String URL = "http://localhost:8230/kie-server/services/rest/server";
+	private static  final String hostip = System.getenv("HOSTIP");
+	private static final String URL = "http://"+hostip+":8480/kie-server/services/rest/server";
 	private static final String USER = "kieserver";
 	private static final String PASSWORD = "kieserver1!";
 	
@@ -67,14 +68,5 @@ public class Client {
         return executeResponse;     
 	}
 	
-	public static void main(String...args) {
-		Vertx vertx = Vertx.vertx();
-	    vertx.deployVerticle(Service.class.getName());
-//		Client client = new Client();
-//		client.initialize();
-//		client.listCapabilities();
-//		client.listContainers();
-//		client.executeCommands();
-	}
 	
 }
