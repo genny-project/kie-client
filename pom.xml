@@ -48,16 +48,7 @@
 			<artifactId>qwanda</artifactId>
 			<version>0.4.9.7</version>
 		</dependency>
-		<!-- Drools Commands -->
 		
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
-			<version>2.8.9</version> </dependency> -->
-		<dependency>
-			<groupId>com.team</groupId>
-			<artifactId>testkie</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

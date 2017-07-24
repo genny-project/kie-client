@@ -3,12 +3,10 @@ package droolsclient;
 import java.util.Arrays;
 import java.util.List;
 
-import org.drools.core.command.runtime.rule.GetObjectsCommand;
 import org.kie.api.KieServices;
 import org.kie.api.command.Command;
 import org.kie.api.command.KieCommands;
 import org.kie.api.runtime.ExecutionResults;
-import org.kie.api.runtime.rule.QueryResults;
 import org.kie.server.api.marshalling.MarshallingFormat;
 import org.kie.server.api.model.KieContainerResource;
 import org.kie.server.api.model.KieContainerResourceList;
@@ -17,13 +15,10 @@ import org.kie.server.api.model.ServiceResponse;
 import org.kie.server.client.KieServicesClient;
 import org.kie.server.client.KieServicesConfiguration;
 import org.kie.server.client.KieServicesFactory;
-import org.kie.server.client.QueryServicesClient;
 import org.kie.server.client.RuleServicesClient;
 
-import com.outcomehub.qwanda.message.QEventMessage;
-
 import io.vertx.core.Vertx;
-import testkie.MyObject;
+
 
 public class Client {
 	private static final String URL = "http://localhost:8230/kie-server/services/rest/server";
