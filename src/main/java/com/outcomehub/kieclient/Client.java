@@ -1,4 +1,4 @@
-package droolsclient;
+package com.outcomehub.kieclient;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,10 +21,10 @@ import io.vertx.core.Vertx;
 
 
 public class Client {
-	private static  final String hostip = System.getenv("HOSTIP");
-	private static final String URL = "http://"+hostip+":8480/kie-server/services/rest/server";
-	private static final String USER = "kieserver";
-	private static final String PASSWORD = "kieserver1!";
+
+	private static final String URL = System.getenv("KIE_SERVER_URL")!=null?System.getenv("KIE_SERVER_URL"):"http://localhost:8480/kie-server/services/rest/server";
+	private static final String USER = System.getenv("KIE_USERNAME")!=null?System.getenv("KIE_USERNAME"):"kieserver";
+	private static final String PASSWORD = System.getenv("KIE_PASSWORD")!=null?System.getenv("KIE_PASSWORD"):"kieserver1!";
 	
 	private static final MarshallingFormat FORMAT =  MarshallingFormat.JSON;
 	

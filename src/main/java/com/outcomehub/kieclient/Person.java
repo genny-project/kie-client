@@ -1,4 +1,4 @@
-package droolsclient;
+package com.outcomehub.kieclient;
 
 import java.sql.Date;
 import java.util.ArrayList;
