@@ -1,4 +1,4 @@
-package com.outcomehub.kieclient;
+package life.genny.kieclient;
 
 import java.util.Map;
 

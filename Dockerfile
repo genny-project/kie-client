@@ -1,14 +1,17 @@
-FROM openjdk:8u131-jre-alpine 
+FROM openjdk:8u131-jre-alpine
 RUN apk update && apk add jq
 
-ADD target/kie-client-0.0.1-SNAPSHOT-fat.jar /opt/kie-client-0.0.1-SNAPSHOT-fat.jar
+ADD target/kie-client-0.0.1-SNAPSHOT-fat.jar /service.jar
+ADD cluster.xml /cluster.xml
 
-ADD realm /opt/realm
-ADD docker-entrypoint2.sh /opt/docker-entrypoint2.sh
-ADD cluster.xml /opt/cluster.xml
+ADD realm /realm
+ADD docker-entrypoint.sh /docker-entrypoint.sh
 
-WORKDIR /opt
+WORKDIR /
 
-EXPOSE 8080
-ENTRYPOINT [ "/opt/docker-entrypoint2.sh" ]
+EXPOSE 5701
+EXPOSE 8081
+
+#CMD ["java"]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
 

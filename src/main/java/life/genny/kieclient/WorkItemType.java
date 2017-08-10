@@ -1,8 +1,8 @@
-package com.outcomehub.kieclient;
+package life.genny.kieclient;
 
 import java.util.Map;
 
-public class UserTaskType implements CommandTypes{
+public class WorkItemType implements CommandTypes{
 
 	@Override
 	public void run(String container, String processId, Map<String,Object>params) {

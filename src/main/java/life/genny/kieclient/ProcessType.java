@@ -1,15 +1,16 @@
-package com.outcomehub.kieclient;
+package life.genny.kieclient;
 
 import java.util.Map;
 
-public class ServiceTaskType implements CommandTypes{
-
+public class ProcessType implements CommandTypes {
+	KieClient  clientKie = (KieClient) new CustomeKieClientFactoryService().getClientKieService();
 	@Override
 	public void run(String container, String processId, Map<String,Object>params) {
-		// TODO Auto-generated method stub
-		
+		clientKie.initialize();
+		clientKie.kieClientStartProcess(container, processId, params);
 	}
 
+	public void getinn() {}
 	@Override
 	public void skipt() {
 		// TODO Auto-generated method stub

@@ -6,4 +6,4 @@ else
    version="${1}"
 fi
 
-docker build  --no-cache -t outcomelife/kie-client:${version} . 
+docker build  --no-cache -t gennyproject/kie-client:${version} .
