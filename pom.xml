@@ -21,14 +21,19 @@
 			<artifactId>kie-server-client</artifactId>
 			<version>${kie.api.version}</version>
 		</dependency>
+		
 		<!-- Logging -->
 		<!-- <dependency> <groupId>ch.qos.logback</groupId> <artifactId>logback-classic</artifactId> 
-			<version>1.1.2</version> </dependency> -->		<!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
+			<version>1.1.2</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
 		<dependency>
-			<groupId>com.outcome-hub</groupId>
-			<artifactId>qwanda</artifactId>
-			<version>0.4.9.7</version>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.1.4.GA-redhat-1</version>
 		</dependency>
+
+		<!-- <dependency> <groupId>com.outcome-hub</groupId> <artifactId>qwanda</artifactId> 
+			<version>0.4.9.7</version> </dependency> -->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-web</artifactId>
@@ -38,18 +43,19 @@
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-core</artifactId>
 			<version>${version.vertx}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-core</artifactId>
-				</exclusion>
-			</exclusions>
-
+			<!-- <exclusions> <exclusion> <groupId>com.fasterxml.jackson.core</groupId> 
+				<artifactId>jackson-core</artifactId> </exclusion> </exclusions> -->
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.7.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.kie.remote/kie-remote-client -->
+		<dependency>
+			<groupId>org.kie.remote</groupId>
+			<artifactId>kie-remote-client</artifactId>
+			<version>6.5.0.Final</version>
 		</dependency>
 
 
@@ -58,11 +64,8 @@
 			<artifactId>jackson-core</artifactId>
 			<version>2.7.5</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.0</version>
-		</dependency>
+		<!-- <dependency> <groupId>com.google.code.gson</groupId> <artifactId>gson</artifactId> 
+			<version>2.8.0</version> </dependency> -->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-reactive-streams</artifactId>
@@ -74,11 +77,8 @@
 			<artifactId>vertx-rx-java</artifactId>
 			<version>${version.vertx}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j-core-version}</version>
-		</dependency>
+		<!-- <dependency> <groupId>org.apache.logging.log4j</groupId> <artifactId>log4j-core</artifactId> 
+			<version>${log4j-core-version}</version> </dependency> -->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-hazelcast</artifactId>
@@ -98,9 +98,21 @@
 
 	</dependencies>
 	<repositories>
+		<!-- <repository> <id>outcomelife</id> <url>https://nexus.outcome-hub.com/nexus/content/repositories/outcomelife</url> 
+			</repository> -->
 		<repository>
-			<id>outcomelife</id>
-			<url>https://nexus.outcome-hub.com/nexus/content/repositories/outcomelife</url>
+			<id>redhat-techpreview-all-repository</id>
+			<name>Red Hat Tech Preview repository (all)</name>
+			<url>http://maven.repository.redhat.com/techpreview/all/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
 		</repository>
 	</repositories>
 	<build>
