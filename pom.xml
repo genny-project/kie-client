@@ -2,61 +2,31 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>life.genny</groupId>
-	<artifactId>kie-client</artifactId>
+	<artifactId>kieclient</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>kie-client</name>
+	<name>kieclient</name>
 	<properties>
 		<log4j-core-version>2.5</log4j-core-version>
-		<kie.api.version>7.0.0.Final</kie.api.version>
+	<kie.api.version>7.0.0.Final</kie.api.version>
 		<log4j-core-version>2.5</log4j-core-version>
 		<version.vertx>3.4.2</version.vertx>
-
 	</properties>
 	<dependencies>
-			<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.spotify</groupId>
-			<artifactId>docker-client</artifactId>
-			<version>8.8.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.bitsofinfo</groupId>
-			<artifactId>hazelcast-docker-swarm-discovery-spi</artifactId>
-			<version>1.0-RC2</version>
-		</dependency>
-
+	
 		<dependency>
 			<groupId>org.kie.server</groupId>
 			<artifactId>kie-server-client</artifactId>
 			<version>${kie.api.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
+		
 		<dependency>
 			<groupId>org.jboss.logging</groupId>
 			<artifactId>jboss-logging</artifactId>
 			<version>3.1.4.GA-redhat-1</version>
 		</dependency>
 
-		<!-- <dependency> <groupId>com.outcome-hub</groupId> <artifactId>qwanda</artifactId> 
-			<version>0.4.9.7</version> </dependency> -->
-		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-web</artifactId>
-			<version>${version.vertx}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-core</artifactId>
-			<version>${version.vertx}</version>
-			<!-- <exclusions> <exclusion> <groupId>com.fasterxml.jackson.core</groupId> 
-				<artifactId>jackson-core</artifactId> </exclusion> </exclusions> -->
-		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
@@ -75,36 +45,66 @@
 			<artifactId>jackson-core</artifactId>
 			<version>2.7.5</version>
 		</dependency>
-		<!-- <dependency> <groupId>com.google.code.gson</groupId> <artifactId>gson</artifactId> 
-			<version>2.8.0</version> </dependency> -->
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-web</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-core</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.0</version>
+		</dependency>
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-reactive-streams</artifactId>
-			<version>${version.vertx}</version>
+			<version>3.4.2</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.vertx/vertx-rx-java -->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-rx-java</artifactId>
-			<version>${version.vertx}</version>
+			<version>3.4.2</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.apache.logging.log4j</groupId> <artifactId>log4j-core</artifactId> 
-			<version>${log4j-core-version}</version> </dependency> -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j-core-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-hazelcast</artifactId>
-			<version>${version.vertx}</version>
+			<version>3.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-auth-common</artifactId>
-			<version>${version.vertx}</version>
+			<version>3.4.2</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.vertx/vertx-auth-oauth2 -->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-auth-oauth2</artifactId>
-			<version>${version.vertx}</version>
+			<version>3.4.2</version>
+		</dependency>
+		<!--<dependency> <groupId>com.outcome-hub</groupId> <artifactId>qwanda</artifactId> 
+			<version>0.4.9.5</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/com.spotify/docker-client -->
+		<dependency>
+			<groupId>com.spotify</groupId>
+			<artifactId>docker-client</artifactId>
+			<version>8.8.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bitsofinfo</groupId>
+			<artifactId>hazelcast-docker-swarm-discovery-spi</artifactId>
+			<version>1.0-RC2</version>
 		</dependency>
 
 	</dependencies>
@@ -121,7 +121,20 @@
 			<name>bintray</name>
 			<url>http://jcenter.bintray.com</url>
 		</repository>
-
+		<repository>
+			<id>redhat-techpreview-all-repository</id>
+			<name>Red Hat Tech Preview repository (all)</name>
+			<url>http://maven.repository.redhat.com/techpreview/all/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
 	</repositories>
 	<build>
 		<plugins>
@@ -172,7 +185,7 @@
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<manifestEntries>
 										<Main-Class>io.vertx.core.Starter</Main-Class>
-										<Main-Verticle>life.genny.kieclient.ServiceVerticle</Main-Verticle>
+										<Main-Verticle>life.genny.kieclient.Service</Main-Verticle>
 
 									</manifestEntries>
 								</transformer>

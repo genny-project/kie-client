@@ -1,11 +1,11 @@
 package life.genny.kieclient;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -108,6 +108,24 @@ public class BusinessProcessController {
 		}
 	}
 
+	public static void main(String...strings) {
+	        try
+	        {    
+	        	ProcessBuilder pb = new ProcessBuilder("/Users/helios/testscript.sh");
+//	        	 Map<String, String> env = pb.environment();
+//	        	 env.put("VAR1", "myValue");
+//	        	 env.remove("OTHERVAR");
+//	        	 env.put("VAR2", env.get("VAR1") + "suffix");
+	        	 pb.directory(new File("/Users/helios/"));
+	        	 Process p = pb.start();
+	        	 System.out.println(p.getInputStream().read());
+//	        	 Thread.sleep(10000);
+	        } catch (Throwable t)
+	        {
+	            t.printStackTrace();
+	        }
+	    
+	}
 	public Map<String, Object> normalizeMsg(JsonObject obj) {
 		Map<String, Object> msg = obj.getMap();
 		try {

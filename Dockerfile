@@ -1,7 +1,7 @@
 FROM openjdk:8u131-jre-alpine
 RUN apk update && apk add jq
 
-ADD target/kie-client-0.0.1-SNAPSHOT-fat.jar /service.jar
+ADD target/kieclient-0.0.1-SNAPSHOT-fat.jar /service.jar
 ADD cluster.xml /cluster.xml
 
 ADD realm /realm

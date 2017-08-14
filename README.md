@@ -1,3 +1,2 @@
-# kie-client
-Vertx Client Interface for KIE-Service
-# kie-client
+# bridge
+Bridges the Vertx Event Bus and the Websocket

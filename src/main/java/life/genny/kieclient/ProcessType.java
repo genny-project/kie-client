@@ -3,14 +3,12 @@ package life.genny.kieclient;
 import java.util.Map;
 
 public class ProcessType implements CommandTypes {
-	KieClient  clientKie = (KieClient) new CustomeKieClientFactoryService().getClientKieService();
+	KieClient  clientKie =  KieClient.getKieClient();
 	@Override
 	public void run(String container, String processId, Map<String,Object>params) {
-		clientKie.initialize();
 		clientKie.kieClientStartProcess(container, processId, params);
 	}
 
-	public void getinn() {}
 	@Override
 	public void skipt() {
 		// TODO Auto-generated method stub
