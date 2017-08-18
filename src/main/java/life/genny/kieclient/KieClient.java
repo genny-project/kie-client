@@ -8,7 +8,7 @@ import org.kie.api.KieServices;
 import org.kie.api.command.Command;
 import org.kie.api.command.KieCommands;
 import org.kie.api.runtime.ExecutionResults;
-import org.kie.api.runtime.process.ProcessInstance;
+import org.kie.server.api.exception.KieServicesHttpException;
 import org.kie.server.api.marshalling.MarshallingFormat;
 import org.kie.server.api.model.KieContainerResource;
 import org.kie.server.api.model.KieContainerResourceList;
@@ -52,7 +52,8 @@ public class KieClient {
 	public UserTaskServicesClient getQueryTask() {
 		return queryTask;
 	}
-
+	
+	
 	private KieServicesConfiguration conf;
 	private KieServicesClient kieServicesClient;
 
@@ -94,14 +95,32 @@ public class KieClient {
 	}
 
 	public void kieClientStartProcess(String containerId, String processId, Map<String, Object> params) {
-		Long id = proCtrl.startProcess(containerId, processId, params);
-		System.out.println(proCtrl.getProcessInstance(containerId, id));
-		System.out.println(proCtrl.getProcessInstance(containerId, id));
-		System.out.println(proCtrl.findActiveNodeInstances(containerId, id, 0, 100));
-		System.out.println(proCtrl.getUserTaskDefinitions(containerId, processId));
-		System.out.println(proCtrl.getServiceTaskDefinitions(containerId, processId));
+		Long id = null;
+		try {
+			 id = proCtrl.startProcess(containerId, processId, params);
+			 System.out.println(proCtrl.getProcessInstance(containerId, id));
+			 System.out.println(proCtrl.findActiveNodeInstances(containerId, id, 0, 100));
+			 System.out.println(proCtrl.getUserTaskDefinitions(containerId, processId));
+			 System.out.println(proCtrl.getServiceTaskDefinitions(containerId, processId));
+		}catch(rx.exceptions.OnErrorNotImplementedException e) {
+			System.out.println("error");
+		}catch(KieServicesHttpException e) {
+			System.out.println("error");
+		}
+		catch(IllegalArgumentException e) {}
 	}
 
+	public void kieClientAbortProcess(String containerId, Long processInstanceId) {
+		try {
+			proCtrl.abortProcessInstance(containerId, processInstanceId);
+		}catch(rx.exceptions.OnErrorNotImplementedException e) {
+			System.out.println("error");
+		}catch(KieServicesHttpException e) {
+			System.out.println("error");
+		}
+		catch(IllegalArgumentException e) {}
+	}
+	
 	public TaskInstance kieClientTaskInfo(String containerId, Long taskId, Long instanceProcessId) {
 		System.out.println(queryTask.getTaskInstance(containerId, taskId));
 		System.out.println();
@@ -138,6 +157,9 @@ public class KieClient {
 		System.out.println(queryTask.getTaskInstance(containerId, taskId));
 	}
 
+	public void startWorkItem(String containerId,Long processInstanceId, Map<String, Object> params, Long itemId) {
+		proCtrl.completeWorkItem(containerId, processInstanceId, itemId, params);
+	}
 	public void listProcesses(String container) {
 		QueryServicesClient queryClient = kieServicesClient.getServicesClient(QueryServicesClient.class);
 		List<ProcessDefinition> findProcessesByContainerId = queryClient.findProcessesByContainerId(container, 0, 1000);

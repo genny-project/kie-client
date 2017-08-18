@@ -38,24 +38,29 @@ public class Service extends AbstractVerticle {
 		setupCluster();
 	}
 
-	public void setupCluster() {
-		Future<Void> startFuture = Future.future();
-		createCluster().compose(v -> {
-			fromBridgecmd = eventBus.consumer("rules.kieclient").toObservable();
-			fromBridgecmd.subscribe(arg -> {
-				BusinessProcessController g = new BusinessProcessController();
-				JsonObject ob = Buffer.buffer(arg.body().toString()).toJsonObject();
-				g.businessReceptor(ob);
-			});
-			startFuture.complete();
-		}, startFuture);
-	}
-
+//	public void setupCluster() {
+//		Future<Void> startFuture = Future.future();
+//		createCluster().compose(v -> {
+//			fromBridgecmd = eventBus.consumer("rules.kieclient").toObservable();
+//			fromBridgecmd.subscribe(arg -> {
+////				BusinessProcessController bpctrl = new BusinessProcessController();
+//				JsonObject ob = Buffer.buffer(arg.body().toString()).toJsonObject();
+//				Test executeConditions = Test.getKieClient();
+//				executeConditions.initialize();
+//				executeConditions.conditions(ob);
+////				bpctrl.businessReceptor(ob);
+////				System.out.println(ob);
+//			});
+//			startFuture.complete();
+//		}, startFuture);
+//	}
+//
 //	public Future<Void> createCluster() {
 //		Future<Void> startFuture = Future.future();
 //
 //		ClusterManager mgr = new HazelcastClusterManager();
 //		VertxOptions options = new VertxOptions().setClusterManager(mgr);
+//		
 //		
 //		Vertx.clusteredVertx(options, res -> {
 //			if (res.succeeded()) {
@@ -64,20 +69,27 @@ public class Service extends AbstractVerticle {
 //				startFuture.complete();
 //			} else {
 //				// failed!
+//				
 //			}
 //		});
 //		return startFuture;
 //	}
-//	public void setupCluster() {
-//		Future<Void> startFuture = Future.future();
-//		createCluster().compose(v -> {
-//			eventListeners();
-//			registerLocalAddresses();
-//			eventsInOutFromCluster();
-//
-//			startFuture.complete();
-//		}, startFuture);
-//	}
+	public void setupCluster() {
+		Future<Void> startFuture = Future.future();
+		createCluster().compose(v -> {
+			fromBridgecmd = eventBus.consumer("rules.kieclient").toObservable();
+			fromBridgecmd.subscribe(arg -> {
+//				BusinessProcessController bpctrl = new BusinessProcessController();
+				JsonObject ob = Buffer.buffer(arg.body().toString()).toJsonObject();
+				Test executeConditions = Test.getKieClient();
+				executeConditions.initialize();
+				executeConditions.conditions(ob);
+//				bpctrl.businessReceptor(ob);
+//				System.out.println(ob);
+			});
+			startFuture.complete();
+		}, startFuture);
+	}
 
 	public Future<Void> createCluster() {
 		Future<Void> startFuture = Future.future();

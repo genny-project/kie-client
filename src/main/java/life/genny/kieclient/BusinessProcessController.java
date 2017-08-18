@@ -55,11 +55,28 @@ public class BusinessProcessController {
 			System.out.println("start");
 			String container = (String) data.get("container");
 			String processId = (String) data.get("processId");
-			data.remove("container");
-			data.remove("processId");
-			bussinessType.get().run(container, processId, data);
+			Integer itemIdTmp = (Integer) data.get("itemIdd");
+			Integer processInstanceIdTmp = (Integer) data.get("processInstanceId");
+			Long itemId = null;
+			Long processInstanceId = null;
+			try {
+				itemId = new Long(itemIdTmp);
+				processInstanceId = new Long(processInstanceIdTmp);
+			}catch(NullPointerException e) {
+					
+			}
+			
+			data.remove("container");data.remove("processId");
+			if (processInstanceId ==null)
+				bussinessType.get().start(container, processId, data);
+			else
+				bussinessType.get().start(container, processInstanceId, data, itemId);
 		} else if (isAbort.test(record)) {
 			System.out.println("abort");
+			String container = (String) data.get("container");
+			Integer processInstanceIdTmp = (Integer) data.get("processInstanceId");
+			Long processInstanceId = new Long(processInstanceIdTmp);
+			bussinessType.get().abort(container, processInstanceId);
 		} else if (isSkipt.test(record)) {
 			System.out.println("skipt");
 		} else if (isFind.test(record)) {

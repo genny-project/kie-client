@@ -6,7 +6,9 @@ public enum BusinessProcessType {
 	WORKITEM("Workitem"),
 	NODE("Node"),
 	USERTASK("Usertask"),
-	SERVICETASK("Servicetask");
+	SERVICETASK("Servicetask"),
+	ASSOCIATEENTITY("Associateentity"),
+	VARIABLES("Variable");
 	
 	public String getDescription() {
 		return description;

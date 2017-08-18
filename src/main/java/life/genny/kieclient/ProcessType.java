@@ -5,7 +5,7 @@ import java.util.Map;
 public class ProcessType implements CommandTypes {
 	KieClient  clientKie =  KieClient.getKieClient();
 	@Override
-	public void run(String container, String processId, Map<String,Object>params) {
+	public void start(String container, String processId, Map<String,Object>params) {
 		clientKie.kieClientStartProcess(container, processId, params);
 	}
 
@@ -16,9 +16,8 @@ public class ProcessType implements CommandTypes {
 	}
 
 	@Override
-	public void abort() {
-		// TODO Auto-generated method stub
-		
+	public void abort(String containerId, Long processInstanceId) {
+		clientKie.kieClientAbortProcess(containerId, processInstanceId);
 	}
 
 	@Override
@@ -47,6 +46,12 @@ public class ProcessType implements CommandTypes {
 
 	@Override
 	public void complete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void start(String containerId, Long processInstanceId, Map<String, Object> params, Long itemId) {
 		// TODO Auto-generated method stub
 		
 	}
