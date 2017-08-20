@@ -9,7 +9,8 @@ public enum BusinessProcessEvent {
 	SIGNAL("signal"),
 	SET("set"),
 	GET("get"),
-	COMPLETE("Complete");
+	COMPLETE("Complete"),
+	FIRE("Fire");
 	
 	public String getDescription() {
 		return description.toLowerCase();

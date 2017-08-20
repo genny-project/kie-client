@@ -33,11 +33,11 @@
 			<version>2.7.5</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.kie.remote/kie-remote-client -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.kie.remote</groupId>
 			<artifactId>kie-remote-client</artifactId>
 			<version>6.5.0.Final</version>
-		</dependency>
+		</dependency> -->
 
 
 		<dependency>

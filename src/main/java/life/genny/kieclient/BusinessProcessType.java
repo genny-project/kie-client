@@ -8,7 +8,8 @@ public enum BusinessProcessType {
 	USERTASK("Usertask"),
 	SERVICETASK("Servicetask"),
 	ASSOCIATEENTITY("Associateentity"),
-	VARIABLES("Variable");
+	VARIABLES("Variable"),
+	RULE("Rule");
 	
 	public String getDescription() {
 		return description;

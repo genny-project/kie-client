@@ -1,26 +1,33 @@
 package life.genny.kieclient;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Map;
 
-import org.kie.server.api.exception.KieServicesHttpException;
+import org.kie.api.KieServices;
+import org.kie.api.command.Command;
+import org.kie.api.command.KieCommands;
 import org.kie.server.api.marshalling.MarshallingFormat;
+import org.kie.server.api.model.ServiceResponse;
+import org.kie.server.api.model.ServiceResponse.ResponseType;
 import org.kie.server.client.KieServicesClient;
 import org.kie.server.client.KieServicesConfiguration;
 import org.kie.server.client.KieServicesFactory;
 import org.kie.server.client.ProcessServicesClient;
-import org.kie.server.client.UserTaskServicesClient;
 import org.kie.server.client.RuleServicesClient;
+import org.kie.server.client.UserTaskServicesClient;
 
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 
 public class Test {
-	
-	private static final String URL = "http://127.0.0.1:8230/kie-server/services/rest/server";
-	private static final String USER = "kieserver";
-	private static final String PASSWORD = "kieserver1!";
+
+	private static final String URL = System.getenv("KIE_SERVER") != null ? System.getenv("KIE_SERVER")
+			: "http://127.0.0.1:8230/kie-server/services/rest/server";
+	private static final String USER = System.getenv("KIE_USERNAME") != null ? System.getenv("KIE_USERNAME")
+			: "kieserver";
+	private static final String PASSWORD = System.getenv("KIE_PASSWORD") != null ? System.getenv("KIE_PASSWORD")
+			: "kieserver1!";
 	private KieServicesConfiguration conf;
 	private KieServicesClient kieServicesClient;
 	private static final Logger logger = LoggerFactory.getLogger(Test.class);
@@ -36,12 +43,16 @@ public class Test {
 		conf.setMarshallingFormat(FORMAT);
 		kieServicesClient = KieServicesFactory.newKieServicesClient(conf);
 		processServicesClient = kieServicesClient.getServicesClient(ProcessServicesClient.class);
-//	    userTaskServicesClient = kieServicesClient.getServicesClient(UserTaskServicesClient.class);
-//	    ruleServicesClient = kieServicesClient.getServicesClient(RuleServicesClient.class);
+		// userTaskServicesClient =
+		// kieServicesClient.getServicesClient(UserTaskServicesClient.class);
+		ruleServicesClient = kieServicesClient.getServicesClient(RuleServicesClient.class);
 	}
-	
+
 	private static Test kieclient = null;
-	private Test() {}
+
+	private Test() {
+	}
+
 	public static Test getKieClient() {
 
 		if (kieclient == null) {
@@ -51,36 +62,47 @@ public class Test {
 		return kieclient;
 	}
 
-//	public void startProcess(String containerId, String processId, Map<String, Object> params) {
-//		System.out.println(processServicesClient.startProcess(containerId, processId, params));
-//	}
-//
-//	public void findNodesActive(String containerId, Long instanceProcessId) {
-//		System.out.println(processServicesClient.findActiveNodeInstances(containerId, instanceProcessId, 0, 100));
-//	}
-//
-//	public void completeWorkItem(String containerId, Long instanceProcessId, Long id, Map<String, Object> results) {
-//		processServicesClient.completeWorkItem(containerId, instanceProcessId, id, results);
-//	}
-//
-//	public void getAllAboutWorkItemToBeExecuted(String containerId, Long instanceProcessId) {
-//		System.out.println(processServicesClient.getWorkItemByProcessInstance(containerId, instanceProcessId));
-//	}
-//
-//	public void getAllAboutProcessInstance(String containerId, Long instanceProcessId) {
-//		System.out.println(processServicesClient.getProcessInstance(containerId, instanceProcessId));
-//	}
-//
-//	public void getAssociatedEntityDefinition(String containerId, String processId) {
-//		System.out.println(processServicesClient.getAssociatedEntityDefinitions(containerId, processId));
-//	}
+	// public void startProcess(String containerId, String processId, Map<String,
+	// Object> params) {
+	// System.out.println(processServicesClient.startProcess(containerId, processId,
+	// params));
+	// }
+	//
+	// public void findNodesActive(String containerId, Long instanceProcessId) {
+	// System.out.println(processServicesClient.findActiveNodeInstances(containerId,
+	// instanceProcessId, 0, 100));
+	// }
+	//
+	// public void completeWorkItem(String containerId, Long instanceProcessId, Long
+	// id, Map<String, Object> results) {
+	// processServicesClient.completeWorkItem(containerId, instanceProcessId, id,
+	// results);
+	// }
+	//
+	// public void getAllAboutWorkItemToBeExecuted(String containerId, Long
+	// instanceProcessId) {
+	// System.out.println(processServicesClient.getWorkItemByProcessInstance(containerId,
+	// instanceProcessId));
+	// }
+	//
+	// public void getAllAboutProcessInstance(String containerId, Long
+	// instanceProcessId) {
+	// System.out.println(processServicesClient.getProcessInstance(containerId,
+	// instanceProcessId));
+	// }
+	//
+	// public void getAssociatedEntityDefinition(String containerId, String
+	// processId) {
+	// System.out.println(processServicesClient.getAssociatedEntityDefinitions(containerId,
+	// processId));
+	// }
 
 	public static void main(String... strings) {
-//		Map<String, Object> params1 = new HashMap<String, Object>();
-//		params1.put("reason", "For outstanding results");
-//		params1.put("Comment", "Very well done!");
-//		Test t = new Test();
-//		t.initialize();
+		// Map<String, Object> params1 = new HashMap<String, Object>();
+		// params1.put("reason", "For outstanding results");
+		// params1.put("Comment", "Very well done!");
+		// Test t = new Test();
+		// t.initialize();
 		// t.startProcess("example", "evaluation", params);
 		// t.findNodesActive("example", 10L);
 		// t.completeWorkItem("example", 6L,19L ,params1);
@@ -135,14 +157,14 @@ public class Test {
 			id = new Long(idTmp);
 			instanceProcessId = new Long(instanceProcessIdTmp);
 		} catch (NullPointerException e) {
-			
+
 		}
 		if (businessType.equals(BusinessProcessType.PROCESS.getDescription())
 				&& businessEvent.equals(BusinessProcessEvent.START.getDescription())) {
-				processServicesClient.startProcess(containerId, processId, params);
+			processServicesClient.startProcess(containerId, processId, params);
 		} else if (businessType.equals(BusinessProcessType.WORKITEM.getDescription())
 				&& businessEvent.equals(BusinessProcessEvent.START.getDescription())) {
-				processServicesClient.completeWorkItem(containerId, instanceProcessId, id, params);
+			processServicesClient.completeWorkItem(containerId, instanceProcessId, id, params);
 		} else if (businessType.equals(BusinessProcessType.PROCESS.getDescription())
 				&& businessEvent.equals(BusinessProcessEvent.ABORT.getDescription())) {
 			processServicesClient.abortProcessInstance(containerId, instanceProcessId);
@@ -151,7 +173,6 @@ public class Test {
 			processServicesClient.abortWorkItem(containerId, instanceProcessId, id);
 		} else if (businessType.equals(BusinessProcessType.ASSOCIATEENTITY.getDescription())
 				&& businessEvent.equals(BusinessProcessEvent.GET)) {
-			
 			processServicesClient.getAssociatedEntityDefinitions(containerId, processId);
 		} else if (businessType.equals(BusinessProcessType.NODE.getDescription())
 				&& businessEvent.equals(BusinessProcessEvent.FIND.getDescription())) {
@@ -168,6 +189,29 @@ public class Test {
 		} else if (businessType.equals(BusinessProcessType.VARIABLES.getDescription())
 				&& businessEvent.equals(BusinessProcessEvent.FIND.getDescription()) && params != null) {
 			processServicesClient.setProcessVariables(containerId, instanceProcessId, params);
+		} else if (businessType.equals(BusinessProcessType.RULE.getDescription())
+				&& businessEvent.equals(BusinessProcessEvent.FIRE.getDescription())) {
+			KieCommands commandsFactory = KieServices.Factory.get().getCommands();
+			Command<?> fireAllRules = commandsFactory.newFireAllRules();
+			Command<?> insert = commandsFactory.newInsert("","pe");
+			Command<?> batchCommand = commandsFactory.newBatchExecution(Arrays.asList(insert,fireAllRules));
+//			ServiceResponse<org.kie.api.runtime.ExecutionResults> executeResponse = ruleServicesClient
+//					.executeCommandsWithResults("kie", batchCommand);
+			ServiceResponse<String> executeResponse = ruleServicesClient.executeCommands("client", batchCommand);
+		    if(executeResponse.getType() == ResponseType.SUCCESS) {
+		        System.out.println("Commands executed with success! Response: ");
+		        System.out.println(executeResponse.getResult());
+		    }
+		    else {
+		        System.out.println("Error executing rules. Message: ");
+		        System.out.println(executeResponse.getMsg());
+		    }
+			
+		    System.out.println("hooola");
+			
+//			System.out.println(executeResponse.getResult());
+//			System.out.println(executeResponse.getMsg());
+//			System.out.println(executeResponse.getType());
 		}
 	}
 }

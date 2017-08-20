@@ -2,9 +2,7 @@ package life.genny.kieclient;
 
 import org.bitsofinfo.hazelcast.discovery.docker.swarm.SwarmAddressPicker;
 import org.bitsofinfo.hazelcast.discovery.docker.swarm.SystemPrintLogger;
-//import org.slf4j.LoggerFactory;
-import io.vertx.core.logging.LoggerFactory;
-import io.vertx.core.logging.Logger;
+import org.kie.server.api.exception.KieServicesHttpException;
 
 import com.hazelcast.config.ClasspathXmlConfig;
 import com.hazelcast.config.Config;
@@ -14,11 +12,15 @@ import com.hazelcast.instance.DefaultNodeContext;
 import com.hazelcast.instance.HazelcastInstanceFactory;
 import com.hazelcast.instance.Node;
 import com.hazelcast.instance.NodeContext;
+
 //import ch.qos.logback.core.pattern.parser.Node;
 import io.vertx.core.Future;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonObject;
+import io.vertx.core.logging.Logger;
+//import org.slf4j.LoggerFactory;
+import io.vertx.core.logging.LoggerFactory;
 import io.vertx.core.spi.cluster.ClusterManager;
 import io.vertx.rxjava.core.AbstractVerticle;
 import io.vertx.rxjava.core.Vertx;
@@ -82,8 +84,10 @@ public class Service extends AbstractVerticle {
 //				BusinessProcessController bpctrl = new BusinessProcessController();
 				JsonObject ob = Buffer.buffer(arg.body().toString()).toJsonObject();
 				Test executeConditions = Test.getKieClient();
-				executeConditions.initialize();
-				executeConditions.conditions(ob);
+				System.out.println(arg.body());
+//				executeConditions.initialize();
+				try {executeConditions.conditions(ob);}catch(KieServicesHttpException e) {}
+				
 //				bpctrl.businessReceptor(ob);
 //				System.out.println(ob);
 			});
@@ -98,7 +102,7 @@ public class Service extends AbstractVerticle {
 
 			if (System.getenv("SWARM") != null) {
 
-				Config conf = new ClasspathXmlConfig("bridge.xml");
+				Config conf = new ClasspathXmlConfig("cluster.xml");
 				System.out.println("Starting hazelcast DISCOVERY!!!!!");
 				NodeContext nodeContext = new DefaultNodeContext() {
 					@Override
@@ -107,7 +111,7 @@ public class Service extends AbstractVerticle {
 					}
 				};
 
-				HazelcastInstance hazelcastInstance = HazelcastInstanceFactory.newHazelcastInstance(conf, "bridge",
+				HazelcastInstance hazelcastInstance = HazelcastInstanceFactory.newHazelcastInstance(conf, "kieclient",
 						nodeContext);
 				System.out.println("Done hazelcast DISCOVERY");
 				future.complete(hazelcastInstance);
@@ -130,7 +134,7 @@ public class Service extends AbstractVerticle {
 				if (System.getenv("SWARM") == null) {
 					if (System.getenv("GENNYDEV") == null) {
 						System.out.println("setClusterHost etc");
-						options.setClusterHost("bridge").setClusterPublicHost("bridge").setClusterPort(15701);
+						options.setClusterHost("kieclient").setClusterPublicHost("kieclient").setClusterPort(15701);
 					} else {
 						logger.info("Running DEV mode, no cluster");
 						options.setBlockedThreadCheckInterval(200000000);
@@ -143,7 +147,7 @@ public class Service extends AbstractVerticle {
 					if (res2.succeeded()) {
 						eventBus = res2.result().eventBus();
 						// handler.setEventBus(eventBus);
-						System.out.println("Bridge Cluster Started!");
+						System.out.println("rules Cluster Started!");
 						startFuture.complete();
 					} else {
 						// failed!
