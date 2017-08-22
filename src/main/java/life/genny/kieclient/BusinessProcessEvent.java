@@ -10,7 +10,8 @@ public enum BusinessProcessEvent {
 	SET("set"),
 	GET("get"),
 	COMPLETE("Complete"),
-	FIRE("Fire");
+	FIRE("Fire"),
+	PREINFO("Preinfo");
 	
 	public String getDescription() {
 		return description.toLowerCase();
