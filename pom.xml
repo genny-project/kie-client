@@ -26,7 +26,13 @@
 			<version>3.1.4.GA-redhat-1</version>
 		</dependency>
 
-
+	<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-workitems -->
+<dependency>
+    <groupId>org.jbpm</groupId>
+    <artifactId>jbpm-workitems</artifactId>
+    <version>7.2.0.Final</version>
+</dependency>
+	
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>

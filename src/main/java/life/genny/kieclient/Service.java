@@ -86,8 +86,11 @@ public class Service extends AbstractVerticle {
 				Test executeConditions = Test.getKieClient();
 				System.out.println(arg.body());
 //				executeConditions.initialize();
-				try {executeConditions.conditions(ob);}catch(KieServicesHttpException e) {}
-				
+				vertx.executeBlocking(ok -> {
+					try {executeConditions.conditions(ob);}catch(KieServicesHttpException e) {}
+				}, ex -> {
+
+				});
 //				bpctrl.businessReceptor(ob);
 //				System.out.println(ob);
 			});

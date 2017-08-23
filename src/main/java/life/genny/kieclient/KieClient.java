@@ -24,7 +24,7 @@ import org.kie.server.client.ProcessServicesClient;
 import org.kie.server.client.QueryServicesClient;
 import org.kie.server.client.RuleServicesClient;
 import org.kie.server.client.UserTaskServicesClient;
-
+import org.kie.api.runtime.process.ProcessInstance;
 public class KieClient {
 
 	private static final String URL = System.getenv("KIE_SERVER") != null ? System.getenv("KIE_SERVER")
@@ -41,7 +41,6 @@ public class KieClient {
 	private static KieClient kieclient = null;
 
 	public static KieClient getKieClient() {
-
 		if (kieclient == null) {
 			kieclient = new KieClient();
 			kieclient.initialize();
@@ -61,6 +60,7 @@ public class KieClient {
 		conf = KieServicesFactory.newRestConfiguration(URL, USER, PASSWORD);
 		conf.setMarshallingFormat(FORMAT);
 		kieServicesClient = KieServicesFactory.newKieServicesClient(conf);
+	
 		proCtrl = kieServicesClient.getServicesClient(ProcessServicesClient.class);
 		queryTask = kieServicesClient.getServicesClient(UserTaskServicesClient.class);
 	}
@@ -86,8 +86,11 @@ public class KieClient {
 		System.out.println("== Sending commands to the server ==");
 		RuleServicesClient rulesClient = kieServicesClient.getServicesClient(RuleServicesClient.class);
 		KieCommands commandsFactory = KieServices.Factory.get().getCommands();
+		
 		// Command<?> insert = commandsFactory.newInsert("","pe");
+		
 		Command<?> fireAllRules = commandsFactory.newFireAllRules();
+	
 		Command<?> batchCommand = commandsFactory.newBatchExecution(Arrays.asList(fireAllRules));
 		ServiceResponse<org.kie.api.runtime.ExecutionResults> executeResponse = rulesClient
 				.executeCommandsWithResults("kie", batchCommand);
