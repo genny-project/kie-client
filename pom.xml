@@ -7,7 +7,7 @@
 	<name>kieclient</name>
 	<properties>
 		<log4j-core-version>2.5</log4j-core-version>
-	<kie.api.version>7.0.0.Final</kie.api.version>
+		<kie.api.version>7.0.0.Final</kie.api.version>
 		<log4j-core-version>2.5</log4j-core-version>
 		<version.vertx>3.4.2</version.vertx>
 	</properties>
@@ -20,24 +20,24 @@
 		</dependency>
 		
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.jboss.logging</groupId>
 			<artifactId>jboss-logging</artifactId>
 			<version>3.1.4.GA-redhat-1</version>
-		</dependency>
+		</dependency> -->
 
 	<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-workitems -->
-<dependency>
+<!-- <dependency>
     <groupId>org.jbpm</groupId>
     <artifactId>jbpm-workitems</artifactId>
     <version>7.2.0.Final</version>
-</dependency>
+</dependency> -->
 	
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.7.5</version>
-		</dependency>
+		</dependency> 
 		<!-- https://mvnrepository.com/artifact/org.kie.remote/kie-remote-client -->
 		<!-- <dependency>
 			<groupId>org.kie.remote</groupId>
@@ -46,11 +46,11 @@
 		</dependency> -->
 
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.7.5</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-web</artifactId>
@@ -77,11 +77,11 @@
 			<artifactId>vertx-rx-java</artifactId>
 			<version>3.4.2</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>${log4j-core-version}</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-hazelcast</artifactId>

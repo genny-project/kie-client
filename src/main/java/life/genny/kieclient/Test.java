@@ -140,7 +140,7 @@ public class Test {
 
 	public void conditions(JsonObject obj) {
 		
-			Map<String, Object> msg = obj.getMap();
+			Map<String, Object> msg = obj.getJsonObject("data").getMap();
 			String businessType = (String) msg.get("businessType");
 			String businessEvent = (String) msg.get("businessEvent");
 			String containerId = (String) msg.get("container");
@@ -200,12 +200,12 @@ public class Test {
 				KieCommands commandsFactory = KieServices.Factory.get().getCommands();
 				KieServices.Factory.get().getCommands().newCompleteWorkItem(2L, new HashMap<String, Object>());
 				Command<?> fireAllRules = commandsFactory.newFireAllRules();
-				Command<?> insert = commandsFactory.newInsert("holaaaaaaaaaaaaaaaaaaaaaaaaaa");
+				Command<?> insert = commandsFactory.newInsert(obj.getMap());
 				Command<?> batchCommand = commandsFactory.newBatchExecution(Arrays.asList(insert, fireAllRules));
 				// ServiceResponse<org.kie.api.runtime.ExecutionResults> executeResponse =
 				// ruleServicesClient
 				// .executeCommandsWithResults("kie", batchCommand);
-				ServiceResponse<String> executeResponse = ruleServicesClient.executeCommands("client", batchCommand);
+				ServiceResponse<String> executeResponse = ruleServicesClient.executeCommands("cliente", batchCommand);
 				if (executeResponse.getType() == ResponseType.SUCCESS) {
 					System.out.println("Commands executed with success! Response: ");
 					System.out.println(executeResponse.getResult());
