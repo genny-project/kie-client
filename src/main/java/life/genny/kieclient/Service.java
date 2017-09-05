@@ -79,8 +79,10 @@ public class Service extends AbstractVerticle {
 	public void setupCluster() {
 		Future<Void> startFuture = Future.future();
 		createCluster().compose(v -> {
+			System.out.println("+++  jdkjskjfdkj sdjfksd  +++");
 			fromBridgecmd = eventBus.consumer("rules.kieclient").toObservable();
 			fromBridgecmd.subscribe(arg -> {
+				System.out.println("jdkjskjfdkj sdjfksd f+++++++++++++");
 //				BusinessProcessController bpctrl = new BusinessProcessController();
 				JsonObject ob = Buffer.buffer(arg.body().toString()).toJsonObject();
 				Test executeConditions = Test.getKieClient();

@@ -1,7 +1,9 @@
 package life.genny.kieclient;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.kie.api.KieServices;
@@ -20,7 +22,6 @@ import org.kie.server.client.UserTaskServicesClient;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-import io.vertx.rxjava.core.Vertx;
 
 public class Test {
 
@@ -39,6 +40,28 @@ public class Test {
 	private RuleServicesClient ruleServicesClient;
 	private final String BUSINESSTYPE = "businessType";
 	private final String BUSINESSEVENT = "businessEvent";
+	
+
+	final String qwandaApiUrl = System.getenv("REACT_APP_QWANDA_API_URL");
+	final String vertxUrl = System.getenv("REACT_APP_VERTX_URL");
+	final String hostIp = System.getenv("HOSTIP");
+	
+
+	String keycloakProto = System.getenv("KEYCLOAK_PROTO")!=null?System.getenv("KEYCLOAK_PROTO"): "http://";
+    String keycloakPort = System.getenv("KEYCLOAK_PORT")!=null?System.getenv("KEYCLOAK_PORT"): "8180";
+    String keycloakIP = System.getenv("HOSTIP")!=null?System.getenv("HOSTIP"): "localhost";
+	String keycloakUrl = keycloakProto+keycloakIP+":"+keycloakPort;
+	
+	
+	String keycloakClientId = System.getenv("KEYCLOAK_CLIENTID")!=null?System.getenv("KEYCLOAK_CLIENTID"):"curl";
+	String keycloakUser = System.getenv("KEYCLOAK_USERID")!=null?System.getenv("KEYCLOAK_USERID"):"user1";
+	String keycloakPassword = System.getenv("KEYCLOAK_PASSWORD")!=null?System.getenv("KEYCLOAK_PASSWORD"):"password1";
+	String realm = System.getenv("KEYCLOAK_REALM")!=null?System.getenv("KEYCLOAK_REALM"):"wildfly-swarm-keycloak-example"; 	
+	String secret = System.getenv("KEYCLOAK_SECRET")!=null?System.getenv("KEYCLOAK_SECRET"):"056b73c1-7078-411d-80ec-87d41c55c3b4";  
+
+	
+	String qwandaServiceUrl = System.getenv("REACT_APP_QWANDA_API_URL")==null?System.getenv("REACT_APP_QWANDA_API_URL"):qwandaApiUrl;
+	
 
 	public void initialize() {
 		conf = KieServicesFactory.newRestConfiguration(URL, USER, PASSWORD);
@@ -201,10 +224,41 @@ public class Test {
 				KieServices.Factory.get().getCommands().newCompleteWorkItem(2L, new HashMap<String, Object>());
 				Command<?> fireAllRules = commandsFactory.newFireAllRules();
 				Command<?> insert = commandsFactory.newInsert(obj.getMap());
-				Command<?> batchCommand = commandsFactory.newBatchExecution(Arrays.asList(insert, fireAllRules));
+				
+				List<Command<?>> insertGlobals = new ArrayList<Command<?>>();//commandsFactory.newSetGlobal("", keycloakProto);
+				
+				insertGlobals.add(commandsFactory.newSetGlobal("KEYPROTO", keycloakProto));
+				insertGlobals.add(commandsFactory.newSetGlobal("KEYPORT", keycloakPort));
+				insertGlobals.add(commandsFactory.newSetGlobal("KEYIP", keycloakIP));
+				insertGlobals.add(commandsFactory.newSetGlobal("KEYURL", keycloakUrl));
+				insertGlobals.add(commandsFactory.newSetGlobal("KEYID", keycloakClientId));
+				insertGlobals.add(commandsFactory.newSetGlobal("KEYUSER", keycloakUser));
+				insertGlobals.add(commandsFactory.newSetGlobal("KEYPASS", keycloakPassword));
+				insertGlobals.add(commandsFactory.newSetGlobal("REALM", realm));
+				insertGlobals.add(commandsFactory.newSetGlobal("SECRET", secret));
+				insertGlobals.add(commandsFactory.newSetGlobal("QWANDASERURL", qwandaServiceUrl));
+				
+				System.out.println(keycloakProto+"---1---"+ keycloakPort+"---2---"+keycloakIP+"---3---"+
+				keycloakUrl+"--4----"+keycloakClientId+"---5---"+keycloakUser+"----6--"+
+						keycloakPassword+"--7----"+realm+"--8----"+
+				secret+"---9---"+qwandaServiceUrl+"---end---");
+		
+				List<Command<?>> allCommands = new ArrayList<Command<?>>();
+				
+				
+				allCommands.addAll(insertGlobals);
+			
+				allCommands.addAll(Arrays.asList(insert, fireAllRules));
+				allCommands.add(insert);
+				allCommands.add(fireAllRules);
+				
+				Command<?> batchCommand = commandsFactory.newBatchExecution(allCommands);
+				
 				// ServiceResponse<org.kie.api.runtime.ExecutionResults> executeResponse =
 				// ruleServicesClient
 				// .executeCommandsWithResults("kie", batchCommand);
+//				Command<?> batchCommands = insertGlobals.stream().map(a->a).flatMap(a->a);
+				
 				ServiceResponse<String> executeResponse = ruleServicesClient.executeCommands("cliente", batchCommand);
 				if (executeResponse.getType() == ResponseType.SUCCESS) {
 					System.out.println("Commands executed with success! Response: ");
