@@ -11,7 +11,7 @@
     </properties>
 
     <group>
-        <name>dev</name>
+        <name>hazelcast-genny</name>
         <password>dev-pass</password>
     </group>
     <management-center enabled="false">http://localhost:8080/mancenter</management-center>
