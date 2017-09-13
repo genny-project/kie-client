@@ -18,7 +18,11 @@
 			<artifactId>kie-server-client</artifactId>
 			<version>${kie.api.version}</version>
 		</dependency>
-		
+		<!-- <dependency>
+			<groupId>life.genny</groupId>
+			<artifactId>qwanda</artifactId>
+			<version>0.5.2</version>
+		</dependency> -->
 		
 		<!-- <dependency>
 			<groupId>org.jboss.logging</groupId>
@@ -33,11 +37,13 @@
     <version>7.2.0.Final</version>
 </dependency> -->
 	
-		<dependency>
+
+	
+		 <dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.7.5</version>
-		</dependency> 
+		</dependency>  
 		<!-- https://mvnrepository.com/artifact/org.kie.remote/kie-remote-client -->
 		<!-- <dependency>
 			<groupId>org.kie.remote</groupId>
@@ -50,7 +56,7 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.7.5</version>
-		</dependency> -->
+		</dependency>  -->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-web</artifactId>
@@ -101,17 +107,17 @@
 		<!--<dependency> <groupId>com.outcome-hub</groupId> <artifactId>qwanda</artifactId> 
 			<version>0.4.9.5</version> </dependency> -->
 		<!-- https://mvnrepository.com/artifact/com.spotify/docker-client -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.spotify</groupId>
 			<artifactId>docker-client</artifactId>
 			<version>8.8.2</version>
-		</dependency>
+		</dependency> -->
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.bitsofinfo</groupId>
 			<artifactId>hazelcast-docker-swarm-discovery-spi</artifactId>
 			<version>1.0-RC2</version>
-		</dependency>
+		</dependency> -->
 
 	</dependencies>
 	<repositories>
