@@ -6,9 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.drools.core.marshalling.impl.ProtobufMessages.KnowledgeBase;
 import org.kie.api.KieServices;
 import org.kie.api.command.Command;
 import org.kie.api.command.KieCommands;
+import org.kie.api.io.ResourceType;
+import org.kie.internal.builder.KnowledgeBuilder;
+import org.kie.internal.builder.KnowledgeBuilderFactory;
+import org.kie.internal.io.ResourceFactory;
+import org.kie.internal.runtime.StatefulKnowledgeSession;
 import org.kie.server.api.marshalling.MarshallingFormat;
 import org.kie.server.api.model.ServiceResponse;
 import org.kie.server.api.model.ServiceResponse.ResponseType;
@@ -164,6 +170,7 @@ public class Test {
 	public void conditions(JsonObject obj) {
 		
 			Map<String, Object> msg = obj.getJsonObject("data").getMap();
+		
 			String businessType = (String) msg.get("businessType");
 			String businessEvent = (String) msg.get("businessEvent");
 			String containerId = (String) msg.get("container");
@@ -245,6 +252,7 @@ public class Test {
 		
 				List<Command<?>> allCommands = new ArrayList<Command<?>>();
 				
+		
 				
 				allCommands.addAll(insertGlobals);
 			
@@ -253,6 +261,16 @@ public class Test {
 				allCommands.add(fireAllRules);
 				
 				Command<?> batchCommand = commandsFactory.newBatchExecution(allCommands);
+				
+//				KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+//				kbuilder.add(ResourceFactory.newClassPathResource("evaluation.bpmn2"), ResourceType.BPMN2 );
+//				KnowledgeBase kbase = readKnowledgeBase();
+				
+//				 org.kie.internal.KnowledgeBase kbase = kbuilder.newKnowledgeBase();
+//				 StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
+//				 ksession.startProcess("evaluation");
+				 
+				 
 				
 				// ServiceResponse<org.kie.api.runtime.ExecutionResults> executeResponse =
 				// ruleServicesClient
