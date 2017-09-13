@@ -1,17 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 echo "RUNNING DOCKER-ENTRYPOINT"
 #set -e;
 
 KEYCLOAK_JSON_FILE=/realm/keycloak.json
 CLUSTER_XML_FILE=/cluster.xml
 JAVA_OPT_KEYCLOAK_PATH=-Dswarm.keycloak.json.path=${KEYCLOAK_JSON_FILE}
-
-
-# change the package.json file
-function escape_slashes {
-    /bin/sed 's/\//\\\//g'
-}
-
 
 myip=
 while IFS=$': \t' read -a line ;do
@@ -25,6 +18,11 @@ if [ -z "${myip}" ]; then
 fi
 
 export MYIP=${myip}
+
+# change the package.json file
+function escape_slashes {
+    /bin/sed 's/\//\\\//g'
+}
 
 function change_line {
   eval OLD_LINE_PATTERN="$1"

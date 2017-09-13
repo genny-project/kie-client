@@ -36,5 +36,4 @@ public class Service extends AbstractVerticle {
 	public void start() {
 		Cluster.joinCluster(vertx);
 	}
-
 }
