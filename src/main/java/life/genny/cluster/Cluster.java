@@ -15,7 +15,7 @@ public class Cluster {
 		EventBus eb = vertx.eventBus();
 		EBConsumers.registerAllConsumer(eb);
 		EBProducers.registerAllProducers(eb);
-		EBCHandlers.registerHandlers(eb);
+		EBCHandlers.registerHandlers();
 	};
 
 	static Action1<Throwable> clusterError = error -> {

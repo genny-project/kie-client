@@ -47,7 +47,7 @@ public class EBCHandlers {
 	static KieSession kSession;
 	static String token;
 	
-	public static void registerHandlers(EventBus eventBus){
+	public static void registerHandlers(){
 		EBConsumers.getFromEvents().subscribe(arg -> {
 			logger.info("Received Event! - events");
 			JsonObject ob = Buffer.buffer(arg.body().toString()).toJsonObject();
@@ -63,6 +63,5 @@ public class EBCHandlers {
 			logger.info("Received Event! - data");
 			JsonObject a = Buffer.buffer(arg.toString().toString()).toJsonObject();
 		});
-		
 	}
 }

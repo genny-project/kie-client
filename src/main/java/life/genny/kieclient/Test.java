@@ -46,7 +46,7 @@ public class Test {
 	private RuleServicesClient ruleServicesClient;
 	private final String BUSINESSTYPE = "businessType";
 	private final String BUSINESSEVENT = "businessEvent";
-	 
+	  
 
 	final String qwandaApiUrl = System.getenv("REACT_APP_QWANDA_API_URL");
 	final String vertxUrl = System.getenv("REACT_APP_VERTX_URL");
